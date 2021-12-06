@@ -1,0 +1,163 @@
+#include<stdio.h>
+#include<string.h>
+struct cricketer
+{
+    int match,wickets;
+    float avg_score,runs;
+    char name[25],country[30],category[30];
+}player[100],x;
+ 
+int main()
+{
+    int i,j,n,f,k,cntr=0;
+    float max;
+    char cntry[30];
+  do
+  {
+    printf("\n\t.....MENU.....\n");
+   printf("1)Enter Player data \n");
+   printf("2)Sort the Batsman as per the average batting score\n");
+   printf("3)Batsman with highest average score\n");
+   printf("4)Number of bowlers of a particular country\n");
+   printf("5)Number of batsman of a particular country\n");
+   printf("6)The bowler that has taken a maximum no of wickets\n");
+   printf("7)Display board information\n\n\n");
+   printf("Enter Your Choice\n"); 
+   scanf("%d",&f);
+    switch (f)
+{
+    case 1:
+    {
+      printf("Enter the no of cricket players\n");
+    scanf("%d",&n);
+    printf("Enter player info as name , category, matches played, wickets taken , runs scored and Country\n");
+     for(i=0;i<n;i++)
+    {
+      printf("Player %d\n",i+1);
+      scanf("%s %s %d %d %f %s",player[i].name,player[i].category,&player[i].match,&player[i].wickets,&player[i].runs,player[i].country);
+    }   
+    }
+        break;
+    case 2:
+    {
+    for(i=0;i<n;i++)
+        {
+           player[i].avg_score=player[i].runs/player[i].match;
+           
+        max = player[i].avg_score;  
+        j = i - 1;  
+  
+        while(j>=0 && max <= player[j].avg_score)  
+        {    
+            player[j+1].avg_score = player[j].avg_score;     
+            j = j-1;    
+        }    
+        player[j+1].avg_score = max;  
+          
+    }  
+}  
+        printf("\nName\t\tAvg Score\n");
+    for(i=0;i<n;i++)
+    {
+        printf("%s\t\t\t%.1f\n",player[i].name,player[i].avg_score);
+    }
+    
+       break;
+    case 3:
+    {
+      for(i=0;i<n;i++)
+        {
+           player[i].avg_score=player[i].runs/player[i].match;
+            if(player[i].avg_score>max)
+            {
+                max=player[i].avg_score;
+            }
+        }
+        printf("Batsman with Highest Average Batting score :%s,%.1f\n",player[i-1].name,max);
+    }
+        break;
+    case 4:
+    {
+      printf("\nEnter country to display number of bowlers: ");
+      scanf("%s", cntry);
+      for(i=0; i<n; i++)
+      {
+        if((strcmp(cntry,player[i].country)==0) && (strcmp("bowler",player[i].category)==0))
+        
+        cntr++;
+      }
+         printf("\nNumber of bowlers of  %s = %d ", cntry, cntr);
+      
+    }
+    break;
+    case 5:
+    {
+      printf("\nEnter country to display number of batsman: ");
+      scanf("%s", cntry);
+      for(i=0; i<n; i++)
+      {
+        if((strcmp(cntry,player[i].country)==0) && (strcmp("batsman",player[i].category)==0))
+        
+        cntr++;
+      }
+         printf("\nNumber of batsman of  %s = %d ", cntry, cntr-1);
+      
+    }
+    break;
+    case 6:
+    {
+      max=0;
+      for(i=0;i<n;i++)
+       {
+            
+            if(player[i].wickets>max)
+            {
+                max=player[i].wickets;
+                k=i;
+            }
+        }
+        printf("Bowler with Highest Wickets :%s,%.0f\n",player[k].name,max);
+    }
+        break;
+    case 7:
+        {
+           for(i=0;i<n;i++)
+    {
+        for(j=0;j<n-1;j++)
+        {
+            if(player[j].runs>player[j+1].runs)
+            {
+                x=player[j];
+                player[j]=player[j+1];
+                player[j+1]=x;
+            }
+        }
+    }
+    printf("\nCricketer info in terms of runs scored from lowest to highest\n");
+    printf("\nName\t\tWickets\t\t\tRuns Scored\t\tCountry\n");
+    printf("...........................................................\n");
+ 
+    for(i=0;i<n;i++)
+    {
+        printf("%s\t\t\t%d\t\t\t\t%.0f\t\t\t%s\n",player[i].name,player[i].wickets,player[i].runs,player[i].country);
+    }
+    }
+      break;
+    case 8:
+    {
+      printf("\nEnter country to display number of batsman: ");
+      scanf("%s", cntry);
+      for(i=0; i<n; i++)
+      {
+        if((strcmp(cntry,player[i].country)==0) && (strcmp("batsman",player[i].category)==0))
+        
+        cntr++;
+      }
+         printf("\nNumber of batsman of %s = %d ", cntry, cntr);
+      
+    }
+    break;
+}
+
+}while(n!=0);
+}
